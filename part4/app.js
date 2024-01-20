@@ -9,8 +9,14 @@ const blogRouter = require('./controllers/blogs')
 const userRouter = require('./controllers/users')
 const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
-const mongoose = require('mongoose');
-const loginRouter = require('./controllers/login');
+const mongoose = require('mongoose')
+const loginRouter = require('./controllers/login')
+
+
+if (process.env.NODE_ENV === 'test') {
+    const testingRouter = require('./controllers/testing')
+    app.use('/api/testing', testingRouter)
+}
 mongoose.set('strictQuery', false)
 logger.info('connecting to ', config.MONGODB_URI)
 
